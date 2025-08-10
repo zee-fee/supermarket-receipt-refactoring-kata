@@ -27,4 +27,46 @@ class SupermarketTest {
         assertEquals(receipt.totalPrice!!, 3.876,0.1)
     }
 
+    @Test
+    fun threeForTwoDiscount() {
+        val catalog = FakeCatalog()
+        val soap = Product("soap", ProductUnit.Each)
+        catalog.addProduct(soap, 2.0)
+        val cart = ShoppingCart()
+        cart.addItemQuantity(soap, 3.0)
+        val teller = Teller(catalog)
+        teller.addSpecialOffer(SpecialOfferType.ThreeForTwo, soap, 0.0)
+        val receipt = teller.checksOutArticlesFrom(cart)
+        // 3 soaps for price of 2
+        assertEquals(receipt.totalPrice!!, 4.0, 0.1)
+    }
+
+    @Test
+    fun twoForAmountDiscount() {
+        val catalog = FakeCatalog()
+        val chips = Product("chips", ProductUnit.Each)
+        catalog.addProduct(chips, 1.5)
+        val cart = ShoppingCart()
+        cart.addItemQuantity(chips, 2.0)
+        val teller = Teller(catalog)
+        teller.addSpecialOffer(SpecialOfferType.TwoForAmount, chips, 2.0)
+        val receipt = teller.checksOutArticlesFrom(cart)
+        // 2 chips for 2.0 instead of 3.0
+        assertEquals(receipt.totalPrice!!, 2.0, 0.1)
+    }
+
+    @Test
+    fun fiveForAmountDiscount() {
+        val catalog = FakeCatalog()
+        val soda = Product("soda", ProductUnit.Each)
+        catalog.addProduct(soda, 1.0)
+        val cart = ShoppingCart()
+        cart.addItemQuantity(soda, 5.0)
+        val teller = Teller(catalog)
+        teller.addSpecialOffer(SpecialOfferType.FiveForAmount, soda, 4.0)
+        val receipt = teller.checksOutArticlesFrom(cart)
+        // 5 sodas for 4.0 instead of 5.0
+        assertEquals(receipt.totalPrice!!, 4.0, 0.1)
+    }
+
 }
