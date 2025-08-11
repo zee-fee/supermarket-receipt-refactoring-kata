@@ -19,12 +19,13 @@ class SupermarketTest {
         cart.addItemQuantity(apples, 1.5)
 
         val teller = Teller(catalog)
-        teller.addSpecialOffer(toothbrush, PercentDiscount(10))
+        teller.addSpecialOffer(apples, PercentDiscount(10))
+        teller.addSpecialOffer(toothbrush, PercentDiscount(20))
 
         val receipt = teller.checksOutArticlesFrom(cart)
 
         assertEquals(receipt.getItems().size, 2)
-        assertEquals(receipt.totalPrice!!, 3.876, 0.1)
+        assertEquals(receipt.totalPrice!!, 3.47, 0.1)
     }
 
     @Test

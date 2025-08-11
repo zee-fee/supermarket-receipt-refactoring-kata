@@ -13,12 +13,18 @@ class Teller(private val catalog: SupermarketCatalog) {
 
     fun checksOutArticlesFrom(theCart: ShoppingCart): Receipt {
         val receipt = Receipt()
-        val productQuantities = theCart.getItems()
-        for ((product,quantity) in productQuantities.entries) {
+        val itemsInCart = theCart.getItemsInCart()
+        for ((product,quantity) in itemsInCart.entries) {
             val unitPrice = this.catalog.getUnitPrice(product)
             receipt.addReceiptItem(ReceiptItem(product, quantity, unitPrice))
+            if (offers.containsKey(product)) {
+                val productOffer = offers[product]!!
+                if(productOffer.isOfferApplicable(quantity)) {
+                    val discount = productOffer.getDiscount(quantity, unitPrice, product)
+                    receipt.addDiscount(discount)
+                }
+            }
         }
-        theCart.handleOffers(receipt, this.offers, this.catalog)
 
         return receipt
     }
