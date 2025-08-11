@@ -1,7 +1,7 @@
 package supermarket.model
 
 interface SupermarketCatalog {
-    fun addProduct(product: Product, price: Double)
+    fun addProductToCatalog(product: Product, price: Double)
 
-    fun getUnitPrice(product: Product): Double
+    fun getUnitPriceFor(product: Product): Double
 }

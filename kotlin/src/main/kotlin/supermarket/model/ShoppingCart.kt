@@ -2,17 +2,17 @@ package supermarket.model
 
 class ShoppingCart {
 
-    private val productQuantities: MutableMap<Product, Double> = HashMap()
+    private val cartItems: MutableMap<Product, Double> = HashMap()
 
     fun getItemsInCart(): Map<Product, Double> {
-        return productQuantities
+        return cartItems
     }
 
-    fun addItemQuantity(product: Product, quantity: Double) {
-        if (productQuantities.containsKey(product)) {
-            productQuantities[product] = productQuantities[product]!! + quantity
+    fun addItemToCart(product: Product, quantity: Double) {
+        if (cartItems.containsKey(product)) {
+            cartItems[product] = cartItems[product]!! + quantity
         } else {
-            productQuantities[product] = quantity
+            cartItems[product] = quantity
         }
     }
 }

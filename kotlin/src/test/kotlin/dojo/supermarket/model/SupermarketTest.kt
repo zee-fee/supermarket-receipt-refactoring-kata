@@ -10,13 +10,13 @@ class SupermarketTest {
     fun tenPercentDiscount() {
         val catalog = FakeCatalog()
         val toothbrush = Product("toothbrush", ProductUnit.Each)
-        catalog.addProduct(toothbrush, 0.99)
+        catalog.addProductToCatalog(toothbrush, 0.99)
         val apples = Product("apples", ProductUnit.Kilo)
-        catalog.addProduct(apples, 1.99)
+        catalog.addProductToCatalog(apples, 1.99)
 
         val cart = ShoppingCart()
-        cart.addItemQuantity(toothbrush, 1.0)
-        cart.addItemQuantity(apples, 1.5)
+        cart.addItemToCart(toothbrush, 1.0)
+        cart.addItemToCart(apples, 1.5)
 
         val teller = Teller(catalog)
         teller.addSpecialOffer(apples, PercentDiscount(10))
@@ -32,9 +32,9 @@ class SupermarketTest {
     fun threeForTwoDiscount() {
         val catalog = FakeCatalog()
         val soap = Product("soap", ProductUnit.Each)
-        catalog.addProduct(soap, 2.0)
+        catalog.addProductToCatalog(soap, 2.0)
         val cart = ShoppingCart()
-        cart.addItemQuantity(soap, 3.0)
+        cart.addItemToCart(soap, 3.0)
         val teller = Teller(catalog)
         teller.addSpecialOffer(soap, ThreeForTwo())
         val receipt = teller.checksOutArticlesFrom(cart)
@@ -46,9 +46,9 @@ class SupermarketTest {
     fun twoForAmountDiscount() {
         val catalog = FakeCatalog()
         val chips = Product("chips", ProductUnit.Each)
-        catalog.addProduct(chips, 1.5)
+        catalog.addProductToCatalog(chips, 1.5)
         val cart = ShoppingCart()
-        cart.addItemQuantity(chips, 2.0)
+        cart.addItemToCart(chips, 2.0)
         val teller = Teller(catalog)
         teller.addSpecialOffer(chips, QuantityForAmount(2, 2.0))
         val receipt = teller.checksOutArticlesFrom(cart)
@@ -60,9 +60,9 @@ class SupermarketTest {
     fun fiveForAmountDiscount() {
         val catalog = FakeCatalog()
         val soda = Product("soda", ProductUnit.Each)
-        catalog.addProduct(soda, 1.0)
+        catalog.addProductToCatalog(soda, 1.0)
         val cart = ShoppingCart()
-        cart.addItemQuantity(soda, 5.0)
+        cart.addItemToCart(soda, 5.0)
         val teller = Teller(catalog)
         teller.addSpecialOffer(soda, QuantityForAmount(5, 4.0))
         val receipt = teller.checksOutArticlesFrom(cart)

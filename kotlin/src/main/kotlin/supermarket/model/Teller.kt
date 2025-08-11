@@ -15,7 +15,7 @@ class Teller(private val catalog: SupermarketCatalog) {
         val receipt = Receipt()
         val itemsInCart = theCart.getItemsInCart()
         for ((product,quantity) in itemsInCart.entries) {
-            val unitPrice = this.catalog.getUnitPrice(product)
+            val unitPrice = this.catalog.getUnitPriceFor(product)
             receipt.addReceiptItem(ReceiptItem(product, quantity, unitPrice))
             if (offers.containsKey(product)) {
                 val productOffer = offers[product]!!
