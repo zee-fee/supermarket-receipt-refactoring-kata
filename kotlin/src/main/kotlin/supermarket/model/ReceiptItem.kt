@@ -1,3 +1,6 @@
 package supermarket.model
 
-data class ReceiptItem(val product: Product, val quantity: Double, val price: Double, val totalPrice: Double)
+data class ReceiptItem(val product: Product, val quantity: Double, val price: Double){
+    val totalPrice: Double
+        get() = price * quantity
+}
